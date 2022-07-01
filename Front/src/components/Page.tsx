@@ -5,11 +5,8 @@ import FormLogin from "./FormLogin"
 import axios from "axios";
 import LogOut from "./LogOut";
 import { isMobile } from "react-device-detect";
+import background from "./../img/background.png";
 
-type User = {
-    name: string,
-    password: string
-}
 const Page: FC = () => {
     const [SignInVis, setSignInVisible] = useState<boolean>(false);
     const [LogInVis, setlogInVisible] = useState<boolean>(true);
@@ -21,6 +18,7 @@ const Page: FC = () => {
           <button type="button" onClick={async () => { setSignInVisible(true); setlogInVisible(false);setLogoutVisible(false); }}>Register</button>
         </Styled_botones>
         <Styled_Container>
+         
             {LogInVis ? <FormLogin></FormLogin> : null}
             {SignInVis ? <Form></Form> : null}
         </Styled_Container>
@@ -30,8 +28,11 @@ const Page: FC = () => {
 
 const Styled_page = styled.div`
 width:100%;
-height:100vh;
-background-color:pink;
+height:100%;
+background-image:url(${background});
+background-position: center;
+background-repeat: no-repeat;
+background-size: cover;
 position:absolute;
 left: 0%;
 top:0%;

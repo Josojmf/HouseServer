@@ -30,7 +30,7 @@ class Form extends React.PureComponent<any,any> {
          
         if(this.state.name == "" || this.state.password == "")alert("Missing params.")
         else{
-            axios.post(`http://192.168.1.120:4000/signin?name=${this.state.name}&password=${this.state.password}`).then((res) => {
+            axios.post(`${process.env.REACT_APP_API_URL}/signin?name=${this.state.name}&password=${this.state.password}`).then((res) => {
                 alert("Dado de alta correctamente")
             }).catch((error) => {
                     alert(error.response.data);

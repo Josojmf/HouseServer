@@ -5,6 +5,7 @@ import FormLogin from "./FormLogin"
 import axios from "axios";
 import Page from "./Page";
 import MainMenu from "./MainMenu";
+import background from "./../img/background.png";
 class LogOut extends React.Component<any,any> {
         
     constructor(props: any){
@@ -19,7 +20,7 @@ class LogOut extends React.Component<any,any> {
     
     async logout() {
             const token= localStorage.getItem("token");
-            axios.post(`http://192.168.1.120:4000/logout?token=${token}`).then((res) => {
+            axios.post(`${process.env.REACT_APP_API_URL}/logout?token=${token}`).then((res) => {
                 alert("Sesión Cerrada")
                 this.setState({ change: true });
                 localStorage.removeItem("token");
@@ -31,7 +32,7 @@ class LogOut extends React.Component<any,any> {
     }
     render(){
         if(this.state.change){
-            return <Page></Page>
+            return <Styled_page> <Page></Page> </Styled_page>
         }else if(this.state.back){
             return <MainMenu></MainMenu>
         }
@@ -52,8 +53,11 @@ class LogOut extends React.Component<any,any> {
 }
 const Styled_page = styled.div`
 width:100%;
-height:100vh;
-background-color:pink;
+height:100%;
+background-image:url(${background});
+background-position: center;
+background-repeat: no-repeat;
+background-size: cover;
 position:absolute;
 left: 0%;
 top:0%;

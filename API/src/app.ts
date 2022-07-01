@@ -1,14 +1,11 @@
 import { Db } from "mongodb";
-import { connectDB } from "./mongo";
 import express from "express";
-import { signin, status, login,logout } from "./resolvers";
+import { signin, status, login,logout,findUser,getProductos,deleteProducto,addProducto} from "./resolvers";
 import dotenv from "dotenv";
 
 const run = async () => {
-  const db: Db = await connectDB();
   dotenv.config()
   const app = express();
-  app.set("db", db);
   var cors = require('cors');
   app.use(cors());
   const {exec} = require("child_process");
@@ -22,7 +19,11 @@ const run = async () => {
   app.use(bodyParser.text());
   app.use(bodyParser.urlencoded({ extended: true }))
   app.get("/status", status);
+  app.get("/findUser",findUser);
+  app.get("/getProductos",getProductos)
   app.post("/signin", signin);
+  app.post("/deleteProducto", deleteProducto)
+  app.post("/addProducto",addProducto)
   app.post("/login", login);
   app.post("/logout", logout);
   await app.listen(process.env.PORT);

@@ -31,29 +31,31 @@ class LogInComp extends React.Component<any,any>{
         super(props);
         this.state={ 
             change:false,
+            loggedIn:false,
             name:"",
             password:"",
             token:""
         }
         this.login = this.login.bind(this);
         this.checkLogin=this.checkLogin.bind(this);
+        this.checkLogin()
     }
      checkLogin(){
         const tokenGet:any = localStorage.getItem("token")
         if (tokenGet!= null){
             this.setState({token:tokenGet})
-            return true;
-        }else return false;
+            axios.get(`${process.env.REACT_APP_API_URL}/findUser?token=${tokenGet}`).then((response) => { this.setState({loggedIn:true})}).catch(error => { alert("Error") })
+            return this.state.loggedIn
+        }
     }
+    
      async login(){
-        if(this.checkLogin()){
+         
+        if(this.state.loggedIn){
             this.setState({ change: true });
-        }else if(this.state.name === "" || this.state.password === "")alert("Missing params.")
+        }else if(this.state.name === "" || this.state.password === "")alert("Missing params." + this.state.loggedIn)
         else{
-            axios.post(`http://192.168.1.120:4000/login?name=${this.state.name}&password=${this.state.password}`).then((res) => {
-                if(isMobile){
-                    sessionStorage.setItem("token",res.data)
-                }
+            axios.post(`${process.env.REACT_APP_API_URL}/login?name=${this.state.name}&password=${this.state.password}`).then((res) => {
                 localStorage.setItem("token",res.data);
                 this.setState({ change: true });
             }).catch((error)=> {
