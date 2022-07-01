@@ -9,8 +9,10 @@ const run = async () => {
   dotenv.config()
   const app = express();
   app.set("db", db);
+  var cors = require('cors');
+  app.use(cors());
   const {exec} = require("child_process");
-  exec('cd Server && python server.py')
+  exec('cd ./../Server && python server.py')
 
   app.use((req, res, next) => {
     next();
