@@ -33,19 +33,19 @@ class Form extends React.PureComponent<any,any> {
             axios.post(`http://192.168.1.120:4000/signin?name=${this.state.name}&password=${this.state.password}`).then((res) => {
                 alert("Dado de alta correctamente")
             }).catch((error) => {
-                    alert("Nombre de usuario no disponible");
-                
-                
-                console.log(error);
+                    alert(error.response.data);
+                     console.log(error);
             }) }
 
     }
     render() {    
     return (
         <div className="input-group">
+            <Styled_Form state={true}>
             <input type="text" name="name" placeholder="Enter Username" id="" onChange={(e) => this.setState({name: e.target.value})}></input>
             <input type="password" name="password" placeholder="Enter password" id="" onChange={(e) => this.setState({password: e.target.value})}></input>
-            <button onClick= {this.signin}>Register</button>
+            </Styled_Form>
+            <Styled_botones> <button onClick= {this.signin}>Register</button></Styled_botones>
             </div>
     )
   
@@ -70,5 +70,13 @@ input {height: 20px; width: 60%;}
 
 
 `
+const Styled_botones = styled.div`
+    display:flex;
+    align-items:center;
+    justify-content: center;
+    button { background: #333; border: none; padding: 0 1rem; margin: 0.75rem; border-radius: 3px; outline: none; color: #fff; width:100px; height: 50px }
+    
+`
+
 
 export default Form

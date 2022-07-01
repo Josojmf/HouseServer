@@ -4,25 +4,25 @@ import Form from "./Form"
 import FormLogin from "./FormLogin"
 import axios from "axios";
 import LogOut from "./LogOut";
+import { isMobile } from "react-device-detect";
 
 type User = {
     name: string,
     password: string
 }
 const Page: FC = () => {
-    const [SignInVis, setSignInVisible] = useState<boolean>(true);
-    const [LogInVis, setlogInVisible] = useState<boolean>(false);
+    const [SignInVis, setSignInVisible] = useState<boolean>(false);
+    const [LogInVis, setlogInVisible] = useState<boolean>(true);
     const [LogOutVis, setLogoutVisible] = useState<boolean>(false);
     return <Styled_page>
+        
         <Styled_botones>
-            <button type="button" onClick={async () => { setSignInVisible(true); setlogInVisible(false);setLogoutVisible(false); }}>SignIn</button>
-            <button type="button" onClick={() => { setSignInVisible(false); setlogInVisible(true);setLogoutVisible(false); }}>LogIn</button>
-            <button type="button" onClick={() => { setSignInVisible(false); setlogInVisible(false);setLogoutVisible(true); }}>LogOut</button>
+          <button type="button" onClick={() => { setSignInVisible(false); setlogInVisible(true);setLogoutVisible(false); }}>LogIn</button>
+          <button type="button" onClick={async () => { setSignInVisible(true); setlogInVisible(false);setLogoutVisible(false); }}>Register</button>
         </Styled_botones>
         <Styled_Container>
-            {SignInVis ? <Form></Form> : null}
             {LogInVis ? <FormLogin></FormLogin> : null}
-            {LogOutVis ? <LogOut></LogOut> : null}
+            {SignInVis ? <Form></Form> : null}
         </Styled_Container>
 
     </Styled_page>
