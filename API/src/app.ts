@@ -2,14 +2,15 @@ import { Db } from "mongodb";
 import express from "express";
 import { signin, status, login,logout,findUser,getProductos,deleteProducto,addProducto} from "./resolvers";
 import dotenv from "dotenv";
+import { connectDB } from "./mongo";
 
 const run = async () => {
   dotenv.config()
+  const db: Db = await connectDB();
   const app = express();
   var cors = require('cors');
   app.use(cors());
-  const {exec} = require("child_process");
-  exec('cd ./../Server && python server.py')
+  app.set("db", db);
 
   app.use((req, res, next) => {
     next();
