@@ -3,7 +3,6 @@ import styled from "@emotion/styled";
 import axios from "axios";
 import MainMenu from "./MainMenu";
 import { render } from "react-dom";
-import { isMobile } from "react-device-detect";
 type User = {
   name: string;
   password: string;
@@ -46,6 +45,7 @@ class LogInComp extends React.Component<any, any> {
         .get(`${process.env.REACT_APP_API_URL}/findUser?token=${tokenGet}`)
         .then((response) => {
           this.setState({ loggedIn: true });
+          this.setState({ change: true });
         })
         .catch((error) => {
         });
@@ -59,7 +59,6 @@ class LogInComp extends React.Component<any, any> {
       this.checkLogin()
       alert("Missing params.");
     } else {
-      alert("Login");
       axios
         .post(
           `${process.env.REACT_APP_API_URL}/login?username=${this.state.name}&password=${this.state.password}`
