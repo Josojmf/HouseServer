@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import axios from "axios";
 import MainMenu from "./MainMenu";
 import { render } from "react-dom";
+
 type User = {
   name: string;
   password: string;
